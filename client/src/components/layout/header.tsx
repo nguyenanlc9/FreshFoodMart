@@ -42,9 +42,11 @@ export default function Header({ onSearch }: HeaderProps) {
             <Button variant="ghost" className="text-gray-700 hover:text-primary">
               Danh mục
             </Button>
-            <Button variant="ghost" className="text-gray-700 hover:text-primary">
-              Đơn hàng
-            </Button>
+            <Link href="/orders">
+              <Button variant="ghost" className="text-gray-700 hover:text-primary">
+                Đơn hàng
+              </Button>
+            </Link>
           </nav>
 
           {/* Search Bar */}
@@ -61,14 +63,16 @@ export default function Header({ onSearch }: HeaderProps) {
 
           {/* User Menu */}
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" className="relative">
-              <ShoppingCart className="h-5 w-5 text-gray-700" />
-              {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {totalItems}
-                </span>
-              )}
-            </Button>
+            <Link href="/cart">
+              <Button variant="ghost" className="relative">
+                <ShoppingCart className="h-5 w-5 text-gray-700" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {totalItems}
+                  </span>
+                )}
+              </Button>
+            </Link>
             <Link href="/admin/login">
               <Button variant="ghost" className="text-gray-700 hover:text-primary">
                 <User className="h-4 w-4 mr-2" />

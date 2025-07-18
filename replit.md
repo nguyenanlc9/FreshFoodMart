@@ -41,12 +41,22 @@ Preferred communication style: Simple, everyday language.
 - **Cart Hook**: Custom React hook for cart state management
 - **Session-based Storage**: Cart items are stored per session ID
 - **Real-time Updates**: Cart updates reflect immediately in the UI
+- **Cart Page**: Dedicated shopping cart page at `/cart` with quantity controls, item removal, and checkout
+- **Checkout Process**: Seamless checkout flow with order creation and cart clearing
+
+### Order Management
+- **Order History**: Complete order tracking at `/orders` with detailed order information
+- **Order Status**: Dynamic status tracking (Chờ xử lý, Đã xác nhận, Đang giao, Đã giao, Đã hủy)
+- **Order Details**: Comprehensive order view with product images, quantities, and totals
+- **LocalStorage Persistence**: Orders are stored in browser localStorage for persistence
 
 ### Admin Dashboard
 - **Authentication**: Email/password login system for admin access
 - **Product Management**: CRUD operations for products
 - **Product Form**: Modal-based form for adding/editing products
 - **Product Table**: Data table with edit/delete actions
+- **Order Management**: Admin can view and manage customer orders with status updates
+- **Multi-tab Interface**: Separate tabs for products and orders management
 
 ### UI Components
 - **shadcn/ui**: Comprehensive component library for consistent design
