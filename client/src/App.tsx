@@ -9,6 +9,7 @@ import Cart from "@/pages/cart";
 import Orders from "@/pages/orders";
 import AdminLogin from "@/pages/admin/login";
 import AdminDashboard from "@/pages/admin/dashboard";
+import CategoryPage from "@/pages/category";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/product/:id" component={ProductDetail} />
       <Route path="/cart" component={Cart} />
       <Route path="/orders" component={Orders} />
+      <Route path="/category" component={CategoryPage} />
       <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin/dashboard" component={AdminDashboard} />
       <Route component={NotFound} />
