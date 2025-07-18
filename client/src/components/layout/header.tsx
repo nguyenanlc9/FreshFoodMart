@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -13,6 +14,10 @@ interface HeaderProps {
 export default function Header({ onSearch }: HeaderProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const { cartItems } = useCart();
+  const { data: auth } = useQuery<{ authenticated: boolean }>({
+    queryKey: ["/api/admin/me"],
+    retry: false,
+  });
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -117,12 +122,14 @@ export default function Header({ onSearch }: HeaderProps) {
                 )}
               </Button>
             </Link>
-            <Link href="/admin/login">
-              <Button variant="ghost" className="text-gray-700 hover:text-primary">
-                <User className="h-4 w-4 mr-2" />
-                Admin
-              </Button>
-            </Link>
+            {!auth?.authenticated && (
+              <Link href="/admin/login">
+                <Button variant="ghost" className="text-gray-700 hover:text-primary">
+                  <User className="h-4 w-4 mr-2" />
+                  Admin
+                </Button>
+              </Link>
+            )}
             <Button className="gradient-bg hover:opacity-90 text-white">
               Đăng nhập
             </Button>
