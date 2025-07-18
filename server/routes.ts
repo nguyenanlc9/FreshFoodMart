@@ -167,9 +167,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ message: "Invalid credentials" });
       }
       
-      // Simple session management
-      req.session = req.session || {};
-      (req.session as any).adminId = admin.id;
+      // Save admin id into the session
+      req.session.adminId = admin.id;
       
       res.json({ message: "Login successful", admin: { id: admin.id, email: admin.email } });
     } catch (error) {
@@ -178,13 +177,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   app.post("/api/admin/logout", (req, res) => {
-    req.session = req.session || {};
-    delete (req.session as any).adminId;
+    delete req.session.adminId;
     res.json({ message: "Logout successful" });
   });
 
   app.get("/api/admin/me", (req, res) => {
-    const adminId = req.session && (req.session as any).adminId;
+    const adminId = req.session.adminId;
     if (!adminId) {
       return res.status(401).json({ message: "Not authenticated" });
     }
