@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
 import { ShoppingCart, Star } from "lucide-react";
+import { Link } from "wouter";
 import type { Product } from "@shared/schema";
 
 interface ProductCardProps {
@@ -81,56 +82,62 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg overflow-hidden card-hover image-zoom animate-fade-in">
-      <div className="relative">
-        <img 
-          src={product.image} 
-          alt={product.name} 
-          className="w-full h-48 object-cover transition-transform duration-300"
-        />
-        {product.tag && (
-          <Badge 
-            className={`absolute top-2 right-2 ${getTagColor(product.tag)}`}
+    <Link href={`/product/${product.id}`}>
+      <div className="bg-white rounded-2xl shadow-lg overflow-hidden card-hover image-zoom animate-fade-in cursor-pointer">
+        <div className="relative">
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            className="w-full h-48 object-cover transition-transform duration-300"
+          />
+          {product.tag && (
+            <Badge 
+              className={`absolute top-2 right-2 ${getTagColor(product.tag)}`}
+            >
+              {getTagText(product.tag)}
+            </Badge>
+          )}
+        </div>
+        
+        <div className="p-6">
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="text-lg font-semibold text-gray-800 line-clamp-2">
+              {product.name}
+            </h3>
+          </div>
+          
+          <div className="flex items-center mb-3">
+            <div className="flex">
+              {generateStars(parseFloat(product.rating || "0"))}
+            </div>
+            <span className="ml-2 text-gray-500 text-sm">
+              ({product.rating})
+            </span>
+          </div>
+          
+          <div className="flex justify-between items-center mb-4">
+            <div className="text-2xl font-bold text-primary">
+              {formatPrice(product.price)}
+            </div>
+            <div className="text-gray-500 text-sm">
+              {product.weight}
+            </div>
+          </div>
+          
+          <Button 
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleAddToCart();
+            }}
+            disabled={isLoading}
+            className="w-full gradient-bg hover:opacity-90 text-white"
           >
-            {getTagText(product.tag)}
-          </Badge>
-        )}
+            <ShoppingCart className="h-4 w-4 mr-2" />
+            {isLoading ? "Đang thêm..." : "Thêm vào giỏ"}
+          </Button>
+        </div>
       </div>
-      
-      <div className="p-6">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="text-lg font-semibold text-gray-800 line-clamp-2">
-            {product.name}
-          </h3>
-        </div>
-        
-        <div className="flex items-center mb-3">
-          <div className="flex">
-            {generateStars(parseFloat(product.rating || "0"))}
-          </div>
-          <span className="ml-2 text-gray-500 text-sm">
-            ({product.rating})
-          </span>
-        </div>
-        
-        <div className="flex justify-between items-center mb-4">
-          <div className="text-2xl font-bold text-primary">
-            {formatPrice(product.price)}
-          </div>
-          <div className="text-gray-500 text-sm">
-            {product.weight}
-          </div>
-        </div>
-        
-        <Button 
-          onClick={handleAddToCart}
-          disabled={isLoading}
-          className="w-full gradient-bg hover:opacity-90 text-white"
-        >
-          <ShoppingCart className="h-4 w-4 mr-2" />
-          {isLoading ? "Đang thêm..." : "Thêm vào giỏ"}
-        </Button>
-      </div>
-    </div>
+    </Link>
   );
 }
