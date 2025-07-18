@@ -8,6 +8,7 @@ import ProductDetail from "@/pages/product-detail";
 import Cart from "@/pages/cart";
 import Orders from "@/pages/orders";
 import AdminLogin from "@/pages/admin/login";
+import Login from "@/pages/login";
 import AdminDashboard from "@/pages/admin/dashboard";
 import CategoryPage from "@/pages/category";
 import NotFound from "@/pages/not-found";
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/cart" component={Cart} />
       <Route path="/orders" component={Orders} />
       <Route path="/category" component={CategoryPage} />
+      <Route path="/login" component={Login} />
       <Route path="/admin/login" component={AdminLogin} />
       <Route path="/admin/dashboard" component={AdminDashboard} />
       <Route component={NotFound} />
