@@ -15,8 +15,13 @@ export default function Home() {
   useEffect(() => {
     const params = new URLSearchParams(location.split('?')[1] || '');
     const searchParam = params.get('search');
+    const categoryParam = params.get('category');
+    
     if (searchParam) {
       setSearchQuery(searchParam);
+    }
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
     }
   }, [location]);
 
