@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useCart } from "@/hooks/use-cart";
-import { ShoppingBasket, Search, ShoppingCart, Menu, User, ChevronDown, Package, Apple, Beef, Milk, Egg, Wheat } from "lucide-react";
+import { ShoppingBasket, Search, ShoppingCart, Menu } from "lucide-react";
 
 interface HeaderProps {
   onSearch: (query: string) => void;
@@ -14,10 +12,6 @@ interface HeaderProps {
 export default function Header({ onSearch }: HeaderProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const { cartItems } = useCart();
-  const { data: auth } = useQuery<{ authenticated: boolean }>({
-    queryKey: ["/api/admin/me"],
-    retry: false,
-  });
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,52 +39,11 @@ export default function Header({ onSearch }: HeaderProps) {
                 Trang chủ
               </Button>
             </Link>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-gray-700 hover:text-primary">
-                  Danh mục
-                  <ChevronDown className="h-4 w-4 ml-1" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-48">
-                <DropdownMenuItem asChild>
-                  <Link href="/?category=all" className="flex items-center gap-2">
-                    <Package className="h-4 w-4" />
-                    Tất cả
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/?category=vegetables" className="flex items-center gap-2">
-                    <Apple className="h-4 w-4" />
-                    Rau củ
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/?category=meat" className="flex items-center gap-2">
-                    <Beef className="h-4 w-4" />
-                    Thịt cá
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/?category=dairy" className="flex items-center gap-2">
-                    <Milk className="h-4 w-4" />
-                    Sữa
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/?category=eggs" className="flex items-center gap-2">
-                    <Egg className="h-4 w-4" />
-                    Trứng
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/?category=dry" className="flex items-center gap-2">
-                    <Wheat className="h-4 w-4" />
-                    Đồ khô
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Link href="/category">
+              <Button variant="ghost" className="text-gray-700 hover:text-primary">
+                Danh mục
+              </Button>
+            </Link>
             <Link href="/orders">
               <Button variant="ghost" className="text-gray-700 hover:text-primary">
                 Đơn hàng
@@ -122,17 +75,11 @@ export default function Header({ onSearch }: HeaderProps) {
                 )}
               </Button>
             </Link>
-            {!auth?.authenticated && (
-              <Link href="/admin/login">
-                <Button variant="ghost" className="text-gray-700 hover:text-primary">
-                  <User className="h-4 w-4 mr-2" />
-                  Admin
-                </Button>
-              </Link>
-            )}
-            <Button className="gradient-bg hover:opacity-90 text-white">
-              Đăng nhập
-            </Button>
+            <Link href="/login">
+              <Button className="gradient-bg hover:opacity-90 text-white">
+                Đăng nhập
+              </Button>
+            </Link>
 
             {/* Mobile Menu Button */}
             <Button variant="ghost" className="md:hidden">
